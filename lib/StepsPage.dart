@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'dart:async';
 
 class StepsPage extends StatefulWidget {
   const StepsPage({Key key}) : super(key: key);

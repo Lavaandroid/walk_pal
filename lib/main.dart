@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'file:///home/artur/Desktop/walk_pal/lib/HomePage.dart';
-import 'file:///home/artur/Desktop/walk_pal/lib/StepsPage.dart';
-import 'file:///home/artur/Desktop/walk_pal/lib/WeatherPage.dart';
-import 'TreesPage.dart';
+import 'package:walk_pal/WeatherPage.dart';
+import 'package:walk_pal/HomePage.dart';
+import 'package:walk_pal/StepsPage.dart';
+import 'package:walk_pal/TreesPage.dart';
 
 
 
-void main()
-{
-  runApp(
-      MyApp()
 
-  );
+void main()  {
+  runApp(MyApp());
 }
 
 
@@ -39,6 +36,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     WeatherPage(),
     HomePage(),
     TreesPage(),
+
 
   ];
 
@@ -72,6 +70,10 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.nature),
                 title: Text('Your trees')
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.nature),
+                title: Text('Kroki')
             ),
           ],
 
