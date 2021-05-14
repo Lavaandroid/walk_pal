@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:walk_pal/DailyStepsScreen.dart';
+import 'package:walk_pal/SmogScreen.dart';
 import 'package:walk_pal/WeatherPage.dart';
 import 'package:walk_pal/HomePage.dart';
 import 'package:walk_pal/StepsPage.dart';
@@ -36,6 +37,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     StepsPage(),
     WeatherPage(),
     //HomePage(),
+    SmogScreen(),
     DailyStepsScreen(),
     TreesPage(),
 

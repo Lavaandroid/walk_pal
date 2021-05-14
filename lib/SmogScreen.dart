@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:walk_pal/SmogDataService.dart';
+import 'package:walk_pal/SmogModels.dart';
 import 'package:walk_pal/WeatherDataService.dart';
 import 'package:walk_pal/WeatherModels.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 
-class WeatherPage extends StatefulWidget {
-  const WeatherPage({Key key}) : super(key: key);
+class SmogScreen extends StatefulWidget {
+  const SmogScreen({Key key}) : super(key: key);
 
   @override
-  _WeatherPageState createState() => _WeatherPageState();
+  _SmogScreenState createState() => _SmogScreenState();
 }
 
-class _WeatherPageState extends State<WeatherPage> {
+class _SmogScreenState extends State<SmogScreen> {
 
-  final _cityTextController = TextEditingController();
-  final _dataService = DataService();
+  final _latTextController = TextEditingController();
+  final _lonTextController = TextEditingController();
+  final _dataService = SmogDataService();
 
-  WeatherResponse _response;
+  SmogeResponse _response;
   Position _currentPosition;
   String _currentAddress;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Weather')),
+      appBar: AppBar(title: Text('Smog')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -32,12 +35,18 @@ class _WeatherPageState extends State<WeatherPage> {
             if (_response != null)
               Column(
                 children: [
-                  Image.network(_response.iconUrl),
+
                   Text(
-                    '${_response.tempInfo.temperature.toStringAsFixed(1)}°',
-                    style: TextStyle(fontSize: 40),
+
+                    _response.qualityInfo.currentAqi.aqilevel.aqi.toString(),
+                    style: TextStyle(fontSize: 40,
+
+                    ),
                   ),
-                  Text(_response.weatherInfo.description)
+                  Text(
+                    _response.nazwaMiasta.city,
+                    style: TextStyle(fontSize: 20),
+                  )
                 ],
               ),
             Padding(
@@ -45,37 +54,33 @@ class _WeatherPageState extends State<WeatherPage> {
               child: SizedBox(
                 width: 150,
                 child: TextField(
-                    controller: _cityTextController,
-                    decoration: InputDecoration(labelText: 'City'),
+                    controller: _latTextController,
+                    decoration: InputDecoration(labelText: 'lat'),
                     textAlign: TextAlign.center),
               ),
             ),
-            TextButton.icon(
-              icon: Icon(Icons.location_on),
-              label: Text('znajdz mnie'),
-              onPressed: _search,
-              style: ButtonStyle(
-    padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
-    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-    backgroundColor: MaterialStateProperty.all<Color>(Colors.lightGreenAccent),
-    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-    RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(18.0),
-    side: BorderSide(color: Colors.lightGreenAccent)
-    )
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 50),
+              child: SizedBox(
+                width: 150,
+                child: TextField(
+                    controller: _lonTextController,
+                    decoration: InputDecoration(labelText: 'lon'),
+                    textAlign: TextAlign.center),
               ),
-            )
-            )
-           // ElevatedButton(onPressed: _search, child: Text('Search')),
-          ],
-        ),
-      ),
-    );
+            ),
+
+            ElevatedButton(onPressed: _search, child: Text('Search'))
+
+                      ]),
+                  ),
+                );
+
+
   }
 
   void _search() async {
-    _getCurrentLocation();
-    final response = await _dataService.getWeather(_currentAddress);
+    final response = await _dataService.getQuality(_latTextController.text, _lonTextController.text);
     setState(() => _response = response);
   }
 
