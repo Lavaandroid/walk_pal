@@ -34,11 +34,13 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 
   int _currentIndex=0;
   final List <Widget> _children=[
-    StepsPage(),
+  //  StepsPage(),
+    Steps(),
     WeatherPage(),
     //HomePage(),
     SmogScreen(),
-    DailyStepsScreen(),
+
+
     TreesPage(),
 
 
@@ -68,16 +70,12 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
                 title: Text('Weather')
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                title: Text('Home')
+                icon: Icon(Icons.waves_sharp),
+                title: Text('Smog')
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.nature),
                 title: Text('Your trees')
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.nature),
-                title: Text('Kroki')
             ),
           ],
 

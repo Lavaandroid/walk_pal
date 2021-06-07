@@ -24,50 +24,68 @@ class _WeatherPageState extends State<WeatherPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Weather')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (_response != null)
+      appBar: AppBar(
+          actions: [
+            Center(child: Text('1000')),
+            IconButton(onPressed: (){}, icon: Icon(Icons.monetization_on),)
+          ],
+          title: Text('Weather')),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (_response != null)
+                Column(
+                  children: [
+                    Image.network(_response.iconUrl),
+                    Text(
+                      '${_response.tempInfo.temperature.toStringAsFixed(1)}°',
+                      style: TextStyle(fontSize: 40),
+                    ),
+                    Text(_response.weatherInfo.description),
+                    Text(_response.cityName)
+                  ],
+                ),
+              SizedBox(
+                height: 100,
+              ),
               Column(
                 children: [
-                  Image.network(_response.iconUrl),
-                  Text(
-                    '${_response.tempInfo.temperature.toStringAsFixed(1)}°',
-                    style: TextStyle(fontSize: 40),
+                  Container(
+                    width: 150,
+                    child: TextField(
+                        controller: _cityTextController,
+                        decoration: InputDecoration(labelText: 'City'),
+                        textAlign: TextAlign.center,
+                    ),
                   ),
-                  Text(_response.weatherInfo.description)
+                  IconButton(onPressed: _search, icon: Icon(Icons.search)),
                 ],
               ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 50),
-              child: SizedBox(
-                width: 150,
-                child: TextField(
-                    controller: _cityTextController,
-                    decoration: InputDecoration(labelText: 'City'),
-                    textAlign: TextAlign.center),
+              SizedBox(
+                height: 150,
               ),
-            ),
-            TextButton.icon(
-              icon: Icon(Icons.location_on),
-              label: Text('znajdz mnie'),
-              onPressed: _search,
-              style: ButtonStyle(
-    padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
-    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-    backgroundColor: MaterialStateProperty.all<Color>(Colors.lightGreenAccent),
-    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-    RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(18.0),
-    side: BorderSide(color: Colors.lightGreenAccent)
-    )
-              ),
-            )
-            )
-           // ElevatedButton(onPressed: _search, child: Text('Search')),
-          ],
+
+             // TextButton.icon(
+               // icon: Icon(Icons.location_on),
+              //  label: Text('znajdz mnie'),
+              //  onPressed: _search,
+               // style: ButtonStyle(
+   // padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
+   // foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+   // backgroundColor: MaterialStateProperty.all<Color>(Colors.lightGreenAccent),
+   // shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+   // RoundedRectangleBorder(
+   // borderRadius: BorderRadius.circular(18.0),
+    //side: BorderSide(color: Colors.lightGreenAccent)
+   // )
+              //  ),
+             // )
+             // )
+             // ElevatedButton(onPressed: _search, child: Text('Search')),
+            ],
+          ),
         ),
       ),
     );

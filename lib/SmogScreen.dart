@@ -27,7 +27,12 @@ class _SmogScreenState extends State<SmogScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Smog')),
+      appBar: AppBar(
+          actions: [
+            Center(child: Text('1000')),
+            IconButton(onPressed: (){}, icon: Icon(Icons.monetization_on),)
+          ],
+          title: Text('Smog')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +75,8 @@ class _SmogScreenState extends State<SmogScreen> {
               ),
             ),
 
-            ElevatedButton(onPressed: _search, child: Text('Search'))
+            ElevatedButton(onPressed: _search, child: Text('Search')),
+            IconButton(onPressed: _szukaj, icon: Icon(Icons.gps_fixed))
 
                       ]),
                   ),
@@ -82,6 +88,14 @@ class _SmogScreenState extends State<SmogScreen> {
   void _search() async {
     final response = await _dataService.getQuality(_latTextController.text, _lonTextController.text);
     setState(() => _response = response);
+  }
+
+  void _szukaj() async {
+    _getCurrentLocation();
+    final response = await _dataService.getQuality(_currentPosition.latitude.toString(), _currentPosition.longitude.toString());
+    setState(() {
+      _response = response;
+    });
   }
 
   _getCurrentLocation() {

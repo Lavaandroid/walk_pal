@@ -36,6 +36,7 @@ dependencies:
   geocoder: ^0.2.1
   geolocator: ^7.0.3
   air_quality: ^2.0.0
+  pedometer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

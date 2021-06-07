@@ -15,6 +15,10 @@ class _StepsPageState extends State<StepsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          Center(child: Text('1000')),
+          IconButton(onPressed: (){}, icon: Icon(Icons.monetization_on),)
+        ],
         title: Text('Steps Page'),
       ),
       body:
