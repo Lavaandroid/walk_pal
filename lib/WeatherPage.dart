@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:walk_pal/WeatherDataService.dart';
 import 'package:walk_pal/WeatherModels.dart';
 import 'package:geocoding/geocoding.dart';
@@ -60,7 +61,13 @@ class _WeatherPageState extends State<WeatherPage> {
                         textAlign: TextAlign.center,
                     ),
                   ),
-                  IconButton(onPressed: _search, icon: Icon(Icons.search)),
+                  ElevatedButton(onPressed: _szukaj, child: Text('Szukaj')),
+                  IconButton(
+                    onPressed: () {
+                      _askLocationPermission();
+                      _search();
+                    },
+                      icon: Icon(Icons.location_on)),
                 ],
               ),
               SizedBox(
@@ -95,6 +102,24 @@ class _WeatherPageState extends State<WeatherPage> {
     _getCurrentLocation();
     final response = await _dataService.getWeather(_currentAddress);
     setState(() => _response = response);
+  }
+  void _szukaj() async {
+    final odpowiedz = await _dataService.getWeather(_cityTextController.text);
+  setState(() {
+    _response=odpowiedz;
+  });
+}
+
+  void _askLocationPermission() async {
+    if (await Permission.contacts.request().isGranted) {
+      // Either the permission was already granted before or the user just granted it.
+    }
+
+// You can request multiple permissions at once.
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.location,
+    ].request();
+    print(statuses[Permission.location]);
   }
 
   _getCurrentLocation() {

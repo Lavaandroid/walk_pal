@@ -5,6 +5,7 @@ import 'package:walk_pal/WeatherPage.dart';
 import 'package:walk_pal/HomePage.dart';
 import 'package:walk_pal/StepsPage.dart';
 import 'package:walk_pal/TreesPage.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 
 
@@ -46,6 +47,8 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 
   ];
 
+
+
   void onTappedBar(int index)
   {
     setState(() {
@@ -56,6 +59,9 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: _children[_currentIndex],
+
+
+
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           onTap: onTappedBar,
@@ -79,6 +85,12 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
             ),
           ],
 
-        ));
+
+
+        )
+
+
+
+    );
   }
 }
