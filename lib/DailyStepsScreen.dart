@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:pedometer/pedometer.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 String formatDate(DateTime d) {
   return d.toString().substring(0, 19);
@@ -15,9 +16,10 @@ class Steps extends StatefulWidget {
 }
 
 class _StepsState extends State<Steps> {
-   Stream<StepCount> _stepCountStream;
-   Stream<PedestrianStatus> _pedestrianStatusStream;
-  String _status = '?', _steps = '?';
+  Stream<StepCount> _stepCountStream;
+  Stream<PedestrianStatus> _pedestrianStatusStream;
+  String _status = '?',
+      _steps = '?';
 
   @override
   void initState() {
@@ -41,7 +43,6 @@ class _StepsState extends State<Steps> {
   }
 
   void initPlatformState() {
-
     _stepCountStream = Pedometer.stepCountStream;
     _stepCountStream.listen(onStepCount).onError(onStepCountError);
 
@@ -49,9 +50,9 @@ class _StepsState extends State<Steps> {
   }
 
 
-  reset () {
+  reset() {
     _steps = 0.toString();
-}
+  }
 
 
   @override
@@ -76,7 +77,7 @@ class _StepsState extends State<Steps> {
 
               RaisedButton(
 
-                onPressed:() {
+                onPressed: () {
                   reset();
                   setState(() {
                     _steps = _steps;
@@ -84,6 +85,10 @@ class _StepsState extends State<Steps> {
                 },
                 child:
                 Text('Resetuj kroki'),
+              ),
+              ElevatedButton(
+                onPressed: _askLocationPermission,
+                child: Text('Przyznaj uprawnienia'),
               ),
               CircularPercentIndicator(
 
@@ -101,6 +106,15 @@ class _StepsState extends State<Steps> {
           ),
         ),
       ),
+
     );
+  }
+
+  void _askLocationPermission() async {
+    if (await Permission.activityRecognition
+        .request()
+        .isGranted) {
+      // Either the permission was already granted before or the user just granted it.
+    }
   }
 }

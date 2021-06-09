@@ -111,7 +111,7 @@ class _WeatherPageState extends State<WeatherPage> {
 }
 
   void _askLocationPermission() async {
-    if (await Permission.contacts.request().isGranted) {
+    if (await Permission.locationWhenInUse.request().isGranted) {
       // Either the permission was already granted before or the user just granted it.
     }
 
